@@ -5,7 +5,8 @@
     android:id="@+id/create_routine_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:fitsSystemWindows="true"
+    android:background="@color/black">
 
     <LinearLayout
         android:id="@+id/header"
@@ -64,7 +65,9 @@
             android:id="@+id/btn_add_exercise"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:backgroundTint="#E0E0E0"
             android:text="+ 운동 종목 추가"
             android:textColor="#000000" />
@@ -72,7 +75,8 @@
         <Button
             android:id="@+id/btn_save_routine"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
             android:backgroundTint="#333333"
             android:text="루틴 저장"
             android:textColor="#FFFFFF"
