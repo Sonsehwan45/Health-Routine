@@ -29,7 +29,7 @@
         android:textSize="14sp"/>
 
     <EditText
-        android:id="@+id/et_reps"
+        android:id="@+id/et_count"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.5"
@@ -48,10 +48,15 @@
         android:inputType="number"
         android:textSize="14sp"/>
 
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <ImageView
         android:id="@+id/btn_delete_set"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
         android:padding="4dp"/>
 
