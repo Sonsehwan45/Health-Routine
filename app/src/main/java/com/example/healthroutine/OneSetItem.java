@@ -1,6 +1,8 @@
 package com.example.healthroutine;
 
-public class OneSetItem {
+import java.io.Serializable;
+
+public class OneSetItem implements Serializable {
     private String weight;
     private String count;
     private String restTime;

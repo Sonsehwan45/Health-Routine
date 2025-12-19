@@ -30,11 +30,12 @@
             android:src="@android:drawable/ic_menu_revert" />
 
         <TextView
+            android:id="@+id/tv_routine_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="루틴 생성"
+            android:text="루틴 이름"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -59,24 +60,32 @@
 
 
         <TextView
-            android:id="@+id/tv_routineName"
+            android:id="@+id/tv_start_day"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:text="시작일:"
             android:gravity="center"
-            android:text="루틴 이름 :"
             android:textColor="@color/black"
             android:textSize="25sp" />
 
-        <EditText
-            android:id="@+id/et_routineName"
+        <TextView
+            android:id="@+id/tv_calender_start_day"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="루틴 이름을 작성하세요."
+            android:text="날짜를 선택하세요 →"
+            android:gravity="center"
             android:textColor="@color/black"
-            android:inputType="text" />
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            app:srcCompat="@drawable/calendar" />
+
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -87,10 +96,8 @@
         android:paddingBottom="80dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_set_routineName"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_set_routineName" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -119,7 +126,7 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:backgroundTint="#333333"
-            android:text="루틴 저장"
+            android:text="운동 완료"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
     </LinearLayout>

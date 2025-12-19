@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHolder> {
+public class CreateRoutineAdapter extends RecyclerView.Adapter<CreateRoutineAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<ExerciseItem> exerciseList; // 메인 액티비티에서 넘겨받은 전체 운동 데이터
 
-    public RoutineAdapter(Context context, ArrayList<ExerciseItem> exerciseList) {
+    public CreateRoutineAdapter(Context context, ArrayList<ExerciseItem> exerciseList) {
         this.context = context;
         this.exerciseList = exerciseList;
     }
@@ -31,7 +31,6 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // 1. 운동 종목 하나를 보여줄 레이아웃(activity_item_exercise)을 inflate 하세요.
         View view = LayoutInflater.from(context).inflate(R.layout.activity_item_exercise_card, parent, false);
         return new ViewHolder(view);
     }
@@ -41,12 +40,9 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
         // 현재 위치(position)의 운동 데이터를 가져옵니다.
         ExerciseItem currentExercise = exerciseList.get(position);
 
-        // --- [STEP 1] 운동 이름 처리 ---
-        // 화면에 현재 데이터의 운동 이름을 표시합니다. (스크롤 복구용)
+        // 화면에 현재 데이터의 운동 이름을 표시합니다.
         holder.etExerciseName.setText(currentExercise.getName());
 
-        // TODO 1: 운동 이름을 수정할 때마다 currentExercise 데이터에 실시간으로 저장하는 코드를 작성하세요.
-        // 힌트: holder.etExerciseName.addTextChangedListener(...) 와 SimpleTextWatcher 사용
         holder.etExerciseName.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
@@ -71,12 +67,12 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
             // 1. 현재 클릭된 아이템의 정확한 위치(index)를 가져옵니다.
             int currentPos = holder.getBindingAdapterPosition();
 
-            // 2. 위치가 유효한지 확인합니다. (가끔 애니메이션 도중 -1이 될 수 있음)
+            // 2. 위치가 유효한지 확인합니다.
             if (currentPos != RecyclerView.NO_POSITION) {
                 // 3. 데이터 리스트에서 해당 운동을 삭제합니다.
                 exerciseList.remove(currentPos);
 
-                // 4. 어댑터에게 "이 위치의 아이템이 삭제됐다"고 알립니다. (애니메이션 효과)
+                // 4. 어댑터에게 "이 위치의 아이템이 삭제됐다"고 알립니다.
                 notifyItemRemoved(currentPos);
 
                 // 5. 삭제된 위치 뒤에 있는 아이템들의 순서(인덱스)를 다시 맞춥니다.
@@ -98,7 +94,6 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
      * @param currentExercise 현재 속한 운동 데이터 (삭제 시 필요)
      */
     private void addSetViewToLayout(LinearLayout container, OneSetItem setItem, int setNumber, ExerciseItem currentExercise) {
-        // TODO 4: 세트 아이템 레이아웃(activity_item_set_row)을 inflate 해서 View 객체로 만드세요.
         View setView = LayoutInflater.from(context).inflate(R.layout.activity_item_set_row, container, false);
 
         // 뷰 찾기
@@ -116,8 +111,6 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
         etRest.setText(setItem.getRestTime());
         checkBox.setChecked(setItem.isCompleted());
 
-        // TODO 5: 무게(Weight) 입력 시 실시간으로 setItem에 저장하는 리스너를 작성하세요.
-        // 힌트: etWeight.addTextChangedListener(...)
         etWeight.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
@@ -125,7 +118,6 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
             }
         });
 
-        // TODO 6: 횟수(Reps) 입력 시 실시간으로 setItem에 저장하는 리스너를 작성하세요.
         etCount.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
@@ -144,7 +136,6 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
             setItem.setCompleted(isChecked);
         });
 
-        // TODO 7: 삭제 버튼(btnDeleteSet) 클릭 이벤트 작성
         btnDelete.setOnClickListener(v -> {
             // 1. 화면에서 제거
             container.removeView(setView);

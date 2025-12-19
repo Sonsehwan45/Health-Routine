@@ -5,7 +5,8 @@
     android:id="@+id/main_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/black"
+    android:fitsSystemWindows="true"
     tools:context=".CreateRoutine">
 
     <LinearLayout
@@ -46,7 +47,7 @@
         android:layout_marginStart="20dp"
         android:text="루틴 리스트"
         android:textSize="20sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_create_routine" />
@@ -55,22 +56,25 @@
         android:id="@+id/editTextText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="50dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="루틴 이름 입력"
-        android:textColor="@color/black"
+        android:gravity="center"
+        android:hint="루틴 이름 검색"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/routine_list"
         app:layout_constraintStart_toEndOf="@+id/routine_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/routine_list" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/footer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

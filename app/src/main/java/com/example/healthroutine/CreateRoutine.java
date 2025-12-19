@@ -1,7 +1,9 @@
 package com.example.healthroutine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,17 +15,19 @@ import java.util.ArrayList;
 public class CreateRoutine extends AppCompatActivity {
 
     private RecyclerView rvExerciseList;
-    private Button btnAddExercise, btnSaveRoutine;
+    private EditText etRoutineName;
+    private Button btnAddExercise;
+    private Button btnSaveRoutine;
 
     private ArrayList<ExerciseItem> exerciseList;
-    private RoutineAdapter adapter;
+    private CreateRoutineAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_routine);
 
-        // 뷰 연결
+        etRoutineName = findViewById(R.id.et_routineName);
         rvExerciseList = findViewById(R.id.rv_exercise_list);
         btnAddExercise = findViewById(R.id.btn_add_exercise);
         btnSaveRoutine = findViewById(R.id.btn_save_routine);
@@ -34,11 +38,10 @@ public class CreateRoutine extends AppCompatActivity {
         exerciseList.add(new ExerciseItem());
 
         // 어댑터 설정
-        adapter = new RoutineAdapter(this, exerciseList);
+        adapter = new CreateRoutineAdapter(this, exerciseList);
         rvExerciseList.setLayoutManager(new LinearLayoutManager(this));
         rvExerciseList.setAdapter(adapter);
 
-        // [운동 추가] 버튼 클릭
         btnAddExercise.setOnClickListener(v -> {
             exerciseList.add(new ExerciseItem());
             adapter.notifyItemInserted(exerciseList.size() - 1);
@@ -46,15 +49,29 @@ public class CreateRoutine extends AppCompatActivity {
             rvExerciseList.scrollToPosition(exerciseList.size() - 1);
         });
 
-        // [저장] 버튼 클릭
         btnSaveRoutine.setOnClickListener(v -> {
-            // 여기에 DB 저장 로직 구현
-            // 예시: 첫 번째 운동 이름 확인
-            if (!exerciseList.isEmpty()) {
-                String firstName = exerciseList.get(0).getName();
-                Toast.makeText(this, "저장됨! 첫 운동: " + firstName, Toast.LENGTH_SHORT).show();
+            String name = etRoutineName.getText().toString();
+
+            if(name.isEmpty()){
+                Toast.makeText(this, "루틴 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                return;
             }
-            finish(); // 화면 종료
+            if(exerciseList.isEmpty()){
+                Toast.makeText(this, "운동을 최소 1개 이상 추가해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            //입력받은 정보로 루틴 아이템 객체 생성
+            RoutineItem routineItem = new RoutineItem(name, exerciseList);
+
+            //메인화면과 연결할 인텐스 생성
+            Intent intent = new Intent(CreateRoutine.this, MainActivity.class);
+            //만든 루틴 객체 데이터 전달
+            intent.putExtra("newRoutine", routineItem);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         });
 
         // 뒤로가기 버튼
