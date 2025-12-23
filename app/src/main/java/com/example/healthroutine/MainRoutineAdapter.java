@@ -58,7 +58,13 @@ public class MainRoutineAdapter extends RecyclerView.Adapter<MainRoutineAdapter.
         }
 
         holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ModifyRoutineActivity.class);
 
+            intent.putExtra("selectedRoutine", currentRoutine.getExerciseList());
+            intent.putExtra("routineName", currentRoutine.getName());
+            intent.putExtra("position", position);
+            context.startActivity(intent);
+            Log.d("MainPage", "루틴 수정으로 이동");
         });
 
         holder.ivStartRoutine.setOnClickListener(v -> {

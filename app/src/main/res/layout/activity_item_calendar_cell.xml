@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/calendar_cell_background">
+    <!-- 배경(테두리 등)을 drawable로 만들어 넣으면 예쁩니다 -->
+
+    <TextView
+        android:id="@+id/cellDayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
+
+    <!-- 운동 완료 시 보여줄 작은 점 (기본은 숨김) -->
+    <View
+        android:id="@+id/dot_exercise"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="2dp"
+        android:background="#FF0000"
+        android:visibility="gone"/>
+</LinearLayout>

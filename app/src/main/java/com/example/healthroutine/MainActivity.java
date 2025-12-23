@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +17,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvRoutineList;
     private Button btCreateRoutine;
     private ArrayList<RoutineItem> routineList;
+    private ImageView btRecordIcon;
     private MainRoutineAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +28,35 @@ public class MainActivity extends AppCompatActivity {
 
         rvRoutineList = findViewById(R.id.listView);
         btCreateRoutine = findViewById(R.id.bt_create_routine);
+        btRecordIcon = findViewById(R.id.btn_record_icon);
 
-        routineList = new ArrayList<>();
+        routineList = SprefsManager.getRoutineList(this);
         addDummyData();
 
         Intent getIntent = getIntent();
-        RoutineItem routineItem = (RoutineItem)getIntent.getSerializableExtra("newRoutine");
-        //전달 받은 루틴 리스트에 저장
-        if(routineItem != null){
-            routineList.add(routineItem);
+
+        // 새로 만든 루틴 리스트에 저장
+        RoutineItem newRoutine = (RoutineItem)getIntent.getSerializableExtra("newRoutine");
+        //전달 받은 새루틴이 있는지 확인후 저장
+        if(newRoutine != null){
+            routineList.add(newRoutine);
+            SprefsManager.setRoutineList(this, routineList);
+        }
+
+        //수정한 루틴 저장
+        RoutineItem modifyRoutine = (RoutineItem)getIntent.getSerializableExtra("modifyRoutine");
+        int position = getIntent.getIntExtra("position", -1);
+
+        if (modifyRoutine != null && position != -1) {
+            // position이 유효한 범위 내에 있는지 확인
+            if (position < routineList.size()) {
+                // 해당 위치의 데이터를 수정된 데이터로 교체
+                routineList.set(position, modifyRoutine);
+            } else {
+                // 범위를 벗어났다면 그냥 맨 뒤에 추가
+                routineList.add(modifyRoutine);
+            }
+            SprefsManager.setRoutineList(this, routineList);
         }
 
         adapter = new MainRoutineAdapter(this, routineList);
@@ -45,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, CreateRoutine.class);
             startActivity(intent);
             Log.d("MainPage", "루틴 생성 버튼 클릭");
+        });
+
+        btRecordIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, activity_workout_history.class);
+            startActivity(intent);
+            Log.d("MainPage", "운동 기록 버튼 클릭");
         });
     }
 

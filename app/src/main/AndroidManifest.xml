@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthRoutine">
         <activity
-            android:name=".StartRoutineActivity"
-            android:exported="false" />
-        <activity
-            android:name=".item_exercise_card"
-            android:exported="false" />
-        <activity
-            android:name=".item_set_row"
+            android:name=".activity_workout_history"
             android:exported="false" />
         <activity
             android:name=".CreateRoutine"
+            android:exported="false" />
+        <activity
+            android:name=".ModifyRoutineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StartRoutineActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
